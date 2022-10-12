@@ -22,6 +22,7 @@ use App\Http\Controllers\HomeController;
 Route::any('/',[HomeController::class,'index']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/daftar-user', [App\Http\Controllers\UserController::class, 'daftar_user'])->name('daftar-user');
 Route::get('/single-product', function(){
     return view('single-product');
 });
@@ -46,9 +47,6 @@ Route::get('daftar-produk', function(){
 Route::get('tambah-produk', function(){
     return view('admin.tambah_produk');
 });
-Route::get('daftar-pelanggan', function(){
-    return view('admin.daftar_pelanggan');
-});
 Route::get('daftar-pesanan', function(){
     return view('admin.daftar_pesanan');
 });
@@ -57,4 +55,7 @@ Route::get('daftar-kupon', function(){
 });
 Route::get('tambah-kupon', function(){
     return view('admin.tambah_kupon');
+});
+Route::get('pengaturan', function(){
+    return view('admin.pengaturan');
 });
