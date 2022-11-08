@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('kupon', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('nama_kupon');
             $table->string('kode_kupon');
             $table->string('tipe_kupon');
             $table->integer('diskon_presentase');

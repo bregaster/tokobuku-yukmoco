@@ -43,7 +43,7 @@ class User extends Authenticatable
     ];
 
     protected function getUserData(){
-        $data= User::all();
+        $data= $this->all();
         return $data;
     }
 }

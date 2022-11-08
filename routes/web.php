@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\BukuController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KuponController;
+use App\Http\Controllers\PesananController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,14 +23,14 @@ use App\Http\Controllers\HomeController;
 
 // Route::get('/', HomeController::class);
 Route::any('/',[HomeController::class,'index']);
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/daftar-user', [App\Http\Controllers\UserController::class, 'daftar_user'])->name('daftar-user');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/daftar-user', [UserController::class, 'daftar_user'])->name('daftar-user');
+Route::get('/daftar-kupon', [KuponController::class, 'daftar_kupon'])->name('daftar-kupon');
+Route::get('/checkout', [PesananController::class, 'checkout'])->name('checkout');
+Route::post('tambah-kupon', [KuponController::class, 'tambah_kupon'])->name('tambah-kupon');
+Route::post('/image-resize', [BukuController::class, 'imgResize'])->name('img-resize');
 Route::get('/single-product', function(){
     return view('single-product');
-});
-Route::get('/checkout', function(){
-    return view('checkout');
 });
 Route::get('/confirmation', function(){
     return view('confirmation');
@@ -49,9 +52,6 @@ Route::get('tambah-produk', function(){
 });
 Route::get('daftar-pesanan', function(){
     return view('admin.daftar_pesanan');
-});
-Route::get('daftar-kupon', function(){
-    return view('admin.daftar_kupon');
 });
 Route::get('tambah-kupon', function(){
     return view('admin.tambah_kupon');
