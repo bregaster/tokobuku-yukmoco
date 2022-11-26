@@ -5,7 +5,7 @@
     <!-- Content -->
 
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Admin/</span> Tambah Kupon</h4>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Admin/</span> Edit Kupon</h4>
 
         <!-- Basic Layout & Basic with Icons -->
         <div class="row">
@@ -32,12 +32,14 @@
                 @endif
                 <div class="card mb-4">
                     <div class="card-body">
-                        <form action="{{ route('kupons.store')}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('kupons.update',$kupon->id)}}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="basic-default-name">Nama Kupon</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="nama" value="{{ old('title') }}"
+                                    <input type="text" class="form-control" name="nama" value="{{ $kupon->nama_kupon}}"
                                         placeholder="Nama Kupon" />
                                 </div>
                             </div>
@@ -45,7 +47,7 @@
                                 <label class="col-sm-2 col-form-label">Kode Kupon</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="basic-default-company"
-                                        placeholder="KODEKUPON" name="kodekupon" value="{{ old('kodekupon') }}"
+                                        placeholder="KODEKUPON" name="kodekupon" value="{{ $kupon->kode_kupon }}"
                                         style="text-transform:uppercase" />
                                 </div>
                             </div>
@@ -53,14 +55,14 @@
                                 <label class="col-sm-2 col-form-label" for="basic-default-company">Jumlah Diskon</label>
                                 <div class="col-sm-10">
                                     <input type="number" class="form-control" id="basic-default-company"
-                                        placeholder="Rp. " name="jumlahdiskon" value="{{ old('jumlahdiskon') }}" />
+                                        placeholder="Rp. " name="jumlahdiskon" value="{{ $kupon->diskon_fix}}" />
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="basic-default-company">Jumlah Kupon</label>
                                 <div class="col-sm-10">
                                     <input type="number" class="form-control" id="basic-default-company"
-                                        placeholder="100 " name="jumlahkupon" value="{{ old('jumlahkupon') }}" />
+                                        placeholder="100 " name="jumlahkupon" value="{{ $kupon->jumlah_kupon }}" />
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -91,12 +93,13 @@
                                             <div class="col-md">
                                                 <div class="form-text">Tanggal mulai</div>
                                                 <input class="form-control" type="date" value="2021-06-18"
-                                                    name="tglmulai" value="{{ old('tglmulai') }}" id="tanggal-mulai" />
+                                                    name="tglmulai" value="{{$kupon->tanggal_mulai}}"
+                                                    id="tanggal-mulai" />
                                             </div>
                                             <div class="col-md">
                                                 <div class="form-text">Tanggal selesai</div>
                                                 <input class="form-control" type="date" value="2021-06-19"
-                                                    name="tglselesai" value="{{ old('tglselesai') }}"
+                                                    name="tglselesai" value="{{ $kupon->tanggal_selesai }}"
                                                     id="tanggal-selesai" />
                                             </div>
                                         </div>

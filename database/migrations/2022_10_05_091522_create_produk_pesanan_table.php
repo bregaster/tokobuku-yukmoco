@@ -19,8 +19,10 @@ return new class extends Migration
             $table->integer('jumlah');
             $table->unsignedBigInteger('id_pesanan');
             $table->unsignedBigInteger('id_buku');
+            $table->boolean('status_keranjang');
             $table->foreign('id_pesanan')->references('id')->on('pesanan')->onDelete('cascade');
             $table->foreign('id_buku')->references('id')->on('buku')->onDelete('cascade');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

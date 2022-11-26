@@ -25,6 +25,11 @@ class HomeController extends Controller
     public function index()
     {
 
-        return view('home', ['buku' => Buku::getHomeData()]);
+        return view('home', ['buku' => Buku::paginate(8)]);
+    }
+    public function show($id)
+    {
+        $buku = Buku::find($id);
+        return view('single-product',compact('buku'));
     }
 }

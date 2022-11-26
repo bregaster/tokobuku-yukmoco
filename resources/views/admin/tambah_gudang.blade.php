@@ -5,7 +5,7 @@
     <!-- Content -->
 
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Admin/</span> Tambah Kupon</h4>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Admin/</span> Tambah Gudang</h4>
 
         <!-- Basic Layout & Basic with Icons -->
         <div class="row">
@@ -32,28 +32,27 @@
                 @endif
                 <div class="card mb-4">
                     <div class="card-body">
-                        <form action="{{ route('kupons.store')}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('tambah-gudang')}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-name">Nama Kupon</label>
+                                <label class="col-sm-2 col-form-label" for="basic-default-name">Nama Gudang</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="nama" value="{{ old('title') }}"
-                                        placeholder="Nama Kupon" />
+                                    <input type="text" class="form-control" name="nama" value="{{ old('nama') }}"
+                                        placeholder="Nama Gudang" />
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label">Kode Kupon</label>
+                                <label class="col-sm-2 col-form-label">Alamat Lengkap</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="basic-default-company"
-                                        placeholder="KODEKUPON" name="kodekupon" value="{{ old('kodekupon') }}"
-                                        style="text-transform:uppercase" />
+                                    <input type="text" class="form-control" id="basic-default-company" name="alamat"
+                                        value="{{ old('alamat') }}" />
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-company">Jumlah Diskon</label>
+                                <label class="col-sm-2 col-form-label" for="basic-default-company">kodepos</label>
                                 <div class="col-sm-10">
-                                    <input type="number" class="form-control" id="basic-default-company"
-                                        placeholder="Rp. " name="jumlahdiskon" value="{{ old('jumlahdiskon') }}" />
+                                    <input type="number" class="form-control" id="basic-default-company" name="kodepos"
+                                        value="{{ old('kodepos') }}" />
                                 </div>
                             </div>
                             <div class="row mb-3">

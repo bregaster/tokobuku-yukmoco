@@ -18,8 +18,8 @@
 <!-- style CSS -->
 <link rel="stylesheet" href="css/style.css">
 <!-- select2 -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 @endsection
 @section('content')
@@ -109,7 +109,7 @@
               <span class="placeholder" data-placeholder="Address line 02"></span>
             </div>
             <div class="col-md-12 form-group p_star">
-              <select name="provinsi" id="provinsi" data-live-search="true" class="form-control selectpicker">
+              <select name="provinsi" id="select2" class="form-control select2">
                 @if ($provinsi !== null)
                 @foreach ($provinsi as $row)
                 <option>{{$row['province']}}</option>
@@ -118,10 +118,11 @@
               </select>
             </div>
             <div class="col-md-12 form-group p_star">
-              <select class="country_select">
+              <select class="country_select" class="form-control">
                 <option value="1">District</option>
                 <option value="2">District</option>
                 <option value="4">District</option>
+                <option value="4">tes</option>
               </select>
             </div>
             <div class="col-md-12 form-group">
@@ -255,11 +256,10 @@
 <!-- custom js -->
 <script src="js/custom.js"></script>
 <!-- select2 -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
   $(document).ready(function() {
-    $('.selectpicker option[value="3"]').hide();
-    $('.selectpicker').selectpicker('refresh');
+    $('#select2').select2();
   });
 </script>
 @endsection

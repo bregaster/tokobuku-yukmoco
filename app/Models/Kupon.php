@@ -10,7 +10,7 @@ class Kupon extends Model
 {
     use HasFactory;
     protected $table = 'kupon';
-    protected $fillable = ['nama_kupon', 'kode_kupon', 'diskon_fix', 'status', 'tanggal_mulai','tanggal_selesai','id_buku'];
+    protected $fillable = ['nama_kupon', 'kode_kupon','jumlah_kupon', 'diskon_fix', 'status', 'tanggal_mulai','tanggal_selesai','id_buku'];
     public function tambah_kupon(Request $request){
             $blog = $this->create([
             'title'     => $request->title,

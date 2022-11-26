@@ -5,7 +5,7 @@
     <!-- Content -->
 
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Forms /</span> Input groups</h4>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Admin /</span> Edit Produk</h4>
 
         <div class="row">
             <!-- try -->
@@ -30,8 +30,9 @@
                     <strong>{{ $message }}</strong>
                 </div>
                 @endif
-                <form action="{{ route('add-product') }}" enctype="multipart/form-data" method="post">
+                <form action="{{ route('bukus.update',$buku->id)}}" enctype="multipart/form-data" method="post">
                     @csrf
+                    @method('PUT')
                     <div class="card mb-4">
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <h5 class="mb-0">Informasi Dasar</h5>
@@ -42,21 +43,21 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Nama</label>
                                 <div class="col-sm-10">
-                                    <input value="{{ old('nama') }}" type="text" class="form-control" name="nama" />
+                                    <input value="{{ $buku->judul_buku }}" type="text" class="form-control"
+                                        name="nama" />
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Deskripsi</label>
                                 <div class="col-sm-10">
                                     <textarea id="konten" name="deskripsi" class="form-control"
-                                        aria-label="Hi, Do you have a moment to talk Joe?"
-                                        aria-describedby="basic-icon-default-message2">{{ old('deskripsi') }}</textarea>
+                                        aria-describedby="basic-icon-default-message2">{{ $buku->deskripsi }}</textarea>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Kategori</label>
                                 <div class="col-sm-10">
-                                    <select value="{{ old('kategori') }}" name="kategori" id="kategori"
+                                    <select value="{{ $buku->kategori }}" name="kategori" id="kategori"
                                         class="form-control kategori">
                                         <option value="nanas">naas</option>
                                         <option value="aple">apel</option>
@@ -69,14 +70,18 @@
                                     <div class="col-md-2">
                                         <div class="form-check">
                                             <input name="visibilitas" class="form-check-input" type="radio"
-                                                value="publish" id="defaultRadio1" />
+                                                value="publish" id="defaultRadio1" {{ ($buku->status=="1")?
+                                            "checked"
+                                            : "" }}/>
                                             <label class="form-check-label"> Terbitkan </label>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-check">
                                             <input name="visibilitas" class="form-check-input" type="radio"
-                                                value="hidden" id="defaultRadio2" checked />
+                                                value="hidden" id="defaultRadio2" {{ ($buku->status=="0")?
+                                            "checked"
+                                            : "" }} />
                                             <label class="form-check-label"> Sembunyikan</label>
                                         </div>
                                     </div>
@@ -96,7 +101,7 @@
                                 <div class="col-sm-10">
                                     <div class="input-group input-group-merge">
                                         <span class="input-group-text" id="basic-default-email2">Rp.</span>
-                                        <input value="{{ old('hargasebelum') }}" type="text" class="form-control"
+                                        <input value="{{ $buku->harga }}" type="text" class="form-control"
                                             name="hargasebelum" />
                                     </div>
                                 </div>
@@ -107,7 +112,7 @@
                                 <div class="col-sm-10">
                                     <div class="input-group input-group-merge">
                                         <span class="input-group-text" id="basic-default-email2">Rp.</span>
-                                        <input value="{{ old('hargasetelah') }}" type="text" class="form-control"
+                                        <input value="{{ $buku->hargasetelahdiskon }}" type="text" class="form-control"
                                             name="hargasetelah" />
                                     </div>
                                 </div>
@@ -123,7 +128,7 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">SKU</label>
                                 <div class="col-sm-10">
-                                    <input value="{{ old('sku') }}" type="text" class="form-control"
+                                    <input value="{{ $buku->sku}}" type="text" class="form-control"
                                         style="text-transform:uppercase" name="sku" />
                                 </div>
                             </div>
@@ -131,7 +136,7 @@
                                 <label class="col-sm-2 col-form-label">Berat</label>
                                 <div class="col-sm-10">
                                     <div class="input-group input-group-merge">
-                                        <input value="{{ old('berat') }}" type="number" class="form-control"
+                                        <input value="{{ $buku->berat }}" type="number" class="form-control"
                                             name="berat" />
                                         <span class="input-group-text">kg</span>
                                     </div>
@@ -140,7 +145,7 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Jumlah Barang</label>
                                 <div class="col-sm-10">
-                                    <input value="{{ old('jumlahbarang') }}" type="number" class="form-control"
+                                    <input value="{{ $buku->jumlah_stok }}" type="number" class="form-control"
                                         name="jumlahbarang" />
                                 </div>
                             </div>
@@ -157,12 +162,13 @@
                                     <div class="row gy-3">
                                         <div class="col-md">
                                             <div class="form-text">Pilih Gambar</div>
-                                            <input value="{{ old('gambar') }}" class="form-control" type="file"
+                                            <input value="{{ $buku->gambar }}" class="form-control" type="file"
                                                 name="gambar" id="formFile" onchange="readURL(this);" />
                                         </div>
                                         <div class="col-md">
                                             <div class="form-text">Preview</div>
-                                            <img id="blah" src="/thumbnails/blank.png" alt="your image" width="320px" />
+                                            <img id="blah" src="{{ asset($buku->gambar) }}" alt=" your image"
+                                                width="320px" />
                                         </div>
                                     </div>
                                 </div>
@@ -180,7 +186,7 @@
         <!-- / Content -->
     </div>
     <!-- Content wrapper -->
-    <script src="admin/ckeditor/ckeditor.js"></script>
+    <script src="{{asset('admin/ckeditor/ckeditor.js')}}"></script>
     <script>
         var konten = document.getElementById("konten");
         CKEDITOR.replace(konten,{

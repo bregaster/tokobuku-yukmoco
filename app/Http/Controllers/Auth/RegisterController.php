@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -62,12 +64,31 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
+    protected function create(){
+        return view('auth.register');
+    }
+
+    public function store(Request $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+        $this->validate($request, [
+            'email' => ['required','email', 'unique:users,email'],
+            'password' => ['required', 'min:8'],
         ]);
+        
+
+       $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'alamat'=>$request->alamat,
+            'kode_pos'=>$request->kodepos,
+            'no_telepon'=>$request->notelepon
+        ]);
+
+        if (Auth::attempt(['email' => $user->email, 'password' => $request->password])) {
+            $request->session()->regenerate();
+
+            return redirect()->intended('home');
+        }
     }
 }

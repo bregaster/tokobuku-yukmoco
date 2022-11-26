@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('total_ongkos_kirim');
             $table->string('alamat_penerima');
             $table->string('no_telepon');
+            $table->boolean('is_checkout');
             $table->unsignedBigInteger('id_user')->nullable();
             $table->timestamps();
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
