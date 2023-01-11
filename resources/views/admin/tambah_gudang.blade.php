@@ -32,7 +32,7 @@
                 @endif
                 <div class="card mb-4">
                     <div class="card-body">
-                        <form action="{{ route('tambah-gudang')}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('add-gudang')}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="basic-default-name">Nama Gudang</label>
@@ -49,57 +49,30 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-default-company">provinsi</label>
+                                <div class="col-sm-10">
+                                    <select name="provinsi" class="form-control">
+                                        @if ($provinsi !== null)
+                                        <option>Pilih Provinsi</option>
+                                        @foreach ($provinsi as $row)
+                                        <option value="{{$row['province_id']}}">{{$row['province']}}</option>
+                                        @endforeach
+                                        @endif
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-default-company">kota</label>
+                                <div class="col-sm-10">
+                                    <select name="kota" class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="basic-default-company">kodepos</label>
                                 <div class="col-sm-10">
                                     <input type="number" class="form-control" id="basic-default-company" name="kodepos"
                                         value="{{ old('kodepos') }}" />
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-company">Jumlah Kupon</label>
-                                <div class="col-sm-10">
-                                    <input type="number" class="form-control" id="basic-default-company"
-                                        placeholder="100 " name="jumlahkupon" value="{{ old('jumlahkupon') }}" />
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label">Status</label>
-                                <div class="col-sm-10">
-                                    <div class="row gy-3">
-                                        <div class="col-md-2">
-                                            <div class="form-check">
-                                                <input name="status" class="form-check-input" type="radio" value="aktif"
-                                                    id="defaultRadio1" />
-                                                <label class="form-check-label"> Aktif </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="form-check">
-                                                <input name="status" class="form-check-input" type="radio"
-                                                    value="nonaktif" id="defaultRadio2" checked />
-                                                <label class="form-check-label"> Tidak Aktif</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="basic-default-company">Masa
-                                        Aktif</label>
-                                    <div class="col-sm-10">
-                                        <div class="row gy-3">
-                                            <div class="col-md">
-                                                <div class="form-text">Tanggal mulai</div>
-                                                <input class="form-control" type="date" value="2021-06-18"
-                                                    name="tglmulai" value="{{ old('tglmulai') }}" id="tanggal-mulai" />
-                                            </div>
-                                            <div class="col-md">
-                                                <div class="form-text">Tanggal selesai</div>
-                                                <input class="form-control" type="date" value="2021-06-19"
-                                                    name="tglselesai" value="{{ old('tglselesai') }}"
-                                                    id="tanggal-selesai" />
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             <div class="row justify-content-end">
@@ -116,4 +89,5 @@
     <!-- / Content -->
 </div>
 <!-- Content wrapper -->
+
 @endsection

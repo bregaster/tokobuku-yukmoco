@@ -3,28 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gudang;
+use App\Services\RajaOngkirServices;
 use Illuminate\Http\Request;
 
 class GudangController extends Controller
 {
-    public function tambah_gudang(Request $request)
+    public function store(Request $request)
     {
         $this->validate($request, [
             'nama'     => 'required',
             'alamat'   => 'required',
+            'provinsi'   => 'required',
+            'kota'   => 'required',
             'kodepos'     => 'required|numeric',
         ],
         [
             'nama.required'=>'Ini messagenya'
         ]);
-        $status = false;
-        if($request->status == "aktif"){
-            $status = true; 
-        };
+
         //upload image
         $gudang = Gudang::create([
             'nama_gudang' => $request->nama,
             'alamat_gudang' => $request->alamat,
+            'kode_provinsi' => $request->provinsi,
+            'kode_kota' => $request->kota,
             'kode_pos' => $request->kodepos
         ]);
 
@@ -44,7 +46,8 @@ class GudangController extends Controller
     
     public function create()
     {
-        return view('gudangs.create');
+        $provinsi = RajaOngkirServices::getProvinsi();
+        return view('admin.tambah_gudang', ['provinsi' => $provinsi]);
     }
   
   
@@ -54,8 +57,10 @@ class GudangController extends Controller
     }
   
     public function edit(gudang $gudang)
-    {
-        return view('admin.edit_gudang',compact('gudang'));
+    {  
+        $provinsi = RajaOngkirServices::getProvinsi();
+        $kota = RajaOngkirServices::getKota($gudang->kode_provinsi);
+        return view('admin.edit_gudang',['provinsi' => $provinsi,'kota'=>$kota, 'gudang'=>$gudang]);
     }
 
     public function update(Request $request, gudang $gudang)
@@ -63,23 +68,23 @@ class GudangController extends Controller
         $this->validate($request, [
             'nama'     => 'required',
             'alamat'   => 'required',
+            'provinsi'   => 'required',
+            'kota'   => 'required',
             'kodepos'     => 'required|numeric',
         ],
         [
-            'nama.required'=>'Ini messagenya'
+            'nama.required'=>'Nama gudang tidak boleh kosong',
+            'alamat.required'=>'Nama gudang tidak boleh kosong',
+            'provinsi.required'=>'Nama gudang tidak boleh kosong',
+            'kota.required'=>'Nama gudang tidak boleh kosong'
         ]);
-        $status = false;
-        if($request->status == "aktif"){
-            $status = true; 
-        };
-        //upload image
         $gudang->update([
             'nama_gudang' => $request->nama,
             'alamat_gudang' => $request->alamat,
+            'kode_provinsi' => $request->provinsi,
+            'kode_kota' => $request->kota,
             'kode_pos' => $request->kodepos
         ]);
-
-      
         return redirect()->route('daftar-gudang')
                         ->with('success','gudang updated successfully');
     }

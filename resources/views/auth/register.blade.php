@@ -21,127 +21,103 @@
 @section('content')
 <section class="login_part padding_top">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Register') }}</div>
-
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('register') }}">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-6">
+                <div class="login_part_text text-center">
+                    <div class="login_part_text_iner">
+                        <h2>Sudah punya akun Yukmoco?</h2>
+                        <a href="{{route('login')}}" class="btn_3">Login disini</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="login_part_form">
+                    <div class="login_part_form_iner">
+                        <h3>Selamat Datang di Yukmoco! <br>
+                            Daftar Sekarang</h3>
+                        <form class="row contact_form" action="{{ route('auth-register') }}" method="post"
+                            novalidate="novalidate">
                             @csrf
-
-                            <div class="row mb-3">
-                                <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="name" type="text"
-                                        class="form-control @error('name') is-invalid @enderror" name="name"
-                                        value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                    @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
+                            <div class="col-md-12 form-group p_star">
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
+                                    name="name" value="{{ old('name') }}" required autocomplete="name" autofocus
+                                    placeholder="Username">
+                                @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
-
-                            <div class="row mb-3">
-                                <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address')
-                                    }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="email" type="email"
-                                        class="form-control @error('email') is-invalid @enderror" name="email"
-                                        value="{{ old('email') }}" required autocomplete="email">
-
-                                    @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
+                            <div class="col-md-12 form-group p_star">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                                    name="email" value="{{ old('email') }}" required autocomplete="email"
+                                    placeholder="Email">
+                                @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
-
-                            <div class="row mb-3">
-                                <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password')
-                                    }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="password" type="password"
-                                        class="form-control @error('password') is-invalid @enderror" name="password"
-                                        required autocomplete="new-password">
-
-                                    @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
+                            <div class="col-md-12 form-group p_star">
+                                <input id="password" type="password"
+                                    class="form-control @error('password') is-invalid @enderror" name="password"
+                                    required autocomplete="new-password" placeholder="Password">
+                                @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
-
-                            <div class="row mb-3">
-                                <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm
-                                    Password') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control"
-                                        name="password_confirmation" required autocomplete="new-password">
-                                </div>
+                            <div class="col-md-12 form-group p_star">
+                                <input id="password-confirm" type="password" class="form-control"
+                                    name="password_confirmation" required autocomplete="new-password"
+                                    placeholder="Confirm Password">
                             </div>
-                            <div class="row mb-3">
-                                <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Alamat') }}</label>
-                                <div class="col-md-6">
-                                    <input id="name" type="text"
-                                        class="form-control @error('alamat') is-invalid @enderror" name="alamat"
-                                        value="{{ old('alamat') }}" required autocomplete="alamat" autofocus>
-
-                                    @error('alamat')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
+                            <div class="col-md-12 form-group p_star">
+                                <input id="notelepon" type="text"
+                                    class="form-control @error('notelepon') is-invalid @enderror" name="notelepon"
+                                    value="{{ old('notelepon') }}" required autocomplete="notelepon" autofocus
+                                    placeholder="Nomor Telepon">
+                                @error('notelepon')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
-                            <div class="row mb-3">
-                                <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Kodepos')
-                                    }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="kodepos" type="number"
-                                        class="form-control @error('kodepos') is-invalid @enderror" name="kodepos"
-                                        value="{{ old('kodepos') }}" required autocomplete="kodepos" autofocus>
-
-                                    @error('kodepos')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
+                            <div class="col-md-12 form-group p_star">
+                                <select name="provinsi" class="form-control">
+                                    @if ($provinsi !== null)
+                                    <option>Pilih Provinsi</option>
+                                    @foreach ($provinsi as $row)
+                                    <option value="{{$row['province_id']}}">{{$row['province']}}</option>
+                                    @endforeach
+                                    @endif
+                                </select>
                             </div>
-                            <div class="row mb-3">
-                                <label for="notelepon" class="col-md-4 col-form-label text-md-end">{{ __('Notelepon')
-                                    }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="notelepon" type="text"
-                                        class="form-control @error('notelepon') is-invalid @enderror" name="notelepon"
-                                        value="{{ old('notelepon') }}" required autocomplete="notelepon" autofocus>
-
-                                    @error('notelepon')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
+                            <div class="col-md-12 form-group p_star">
+                                <select name="kota" class="form-control">
+                                </select>
+                                @error('alamat')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
-
-                            <div class="row mb-0">
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('Register') }}
-                                    </button>
-                                </div>
+                            <div class="col-md-12 form-group p_star">
+                                <input id="alamat" type="text"
+                                    class="form-control @error('alamat') is-invalid @enderror" name="alamat"
+                                    value="{{ old('alamat') }}" required autocomplete="alamat" autofocus
+                                    placeholder="Alamat Lengkap">
+                                @error('alamat')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <button type="submit" value="submit" class="btn_3">
+                                    Register
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -181,4 +157,25 @@
 
 <!-- custom js -->
 <script src="{{asset('js/custom.js')}}"></script>
+<script>
+    $(document).ready(function() {
+    $('select[name="provinsi"]').on('change', function(){
+      console.log('asd');
+      let provinceId = $(this).val();
+      if(provinceId){
+        $.get("/province/"+provinceId, function(data, status){
+          console.log(data);
+          $('select[name="kota"]').empty();
+            $('select[name="kota"]').append('<option >Pilih Kota</option>')
+          $.each(data, function(key, value){
+            console.log(key, value);
+            $('select[name="kota"]').append('<option value="'+ value.city_id +'">'+value.city_name+'</option>')
+          })
+          });
+      }else{
+        $('select[name="kota"]').empty();
+      }
+    })
+  });
+</script>
 @endsection

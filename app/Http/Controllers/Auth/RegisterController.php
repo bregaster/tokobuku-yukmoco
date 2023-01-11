@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Services\RajaOngkirServices;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Auth;
@@ -65,14 +66,16 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(){
-        return view('auth.register');
+        $provinsi = RajaOngkirServices::getProvinsi();
+        return view('auth.register', ['provinsi' => $provinsi]);
     }
 
     public function store(Request $request)
     {
         $this->validate($request, [
             'email' => ['required','email', 'unique:users,email'],
-            'password' => ['required', 'min:8'],
+            'password' => 'min:6|required_with:password_confirmation|same:password_confirmation',
+            'password_confirmation' => 'min:6'
         ]);
         
 
@@ -81,14 +84,16 @@ class RegisterController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'alamat'=>$request->alamat,
-            'kode_pos'=>$request->kodepos,
-            'no_telepon'=>$request->notelepon
+            'kode_provinsi'=>$request->provinsi,
+            'kode_kota'=>$request->kota,
+            'no_telepon'=>$request->notelepon,
+            'is_admin'=>false
         ]);
 
         if (Auth::attempt(['email' => $user->email, 'password' => $request->password])) {
             $request->session()->regenerate();
 
-            return redirect()->intended('home');
+            return redirect()->intended('home')->with(['success' => 'Registrasi Berhasil!']);
         }
     }
 }

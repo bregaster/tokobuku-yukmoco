@@ -18,9 +18,11 @@ class ProdukPesanan extends Model
         'id_user'
     ];
 
-    protected function getKeranjangData($id){
+    protected function getKeranjang($id){
         $data = $this->join('buku','buku.id','=','produk_pesanan.id_buku')
-            ->where('id_user',$id)
+            ->join('gudang','gudang.id','=','buku.id_gudang')
+            ->where('id_pesanan',$id)
+            ->orderBy('id_gudang', 'asc')
             ->get();
         return $data;
     }

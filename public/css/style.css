@@ -45,7 +45,7 @@ input:focus {
 
 /* line 24, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_common.scss */
 .section_padding {
-    padding: 140px 0px;
+    padding: 80px 0px;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1200px) {
@@ -72,73 +72,73 @@ input:focus {
 @media only screen and (min-width: 576px) and (max-width: 767px) {
     /* line 24, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_common.scss */
     .section_padding {
-        padding: 70px 0px;
+        padding: 150px 0px;
     }
 }
 
 /* line 44, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_common.scss */
 .single_padding_top {
-    padding-top: 140px !important;
+    padding-top: 150px !important;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1200px) {
     /* line 44, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_common.scss */
     .single_padding_top {
-        padding-top: 70px !important;
+        padding-top: 150px !important;
     }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
     /* line 44, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_common.scss */
     .single_padding_top {
-        padding-top: 70px !important;
+        padding-top: 150px !important;
     }
 }
 
 @media (max-width: 576px) {
     /* line 44, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_common.scss */
     .single_padding_top {
-        padding-top: 70px !important;
+        padding-top: 150px !important;
     }
 }
 
 @media only screen and (min-width: 576px) and (max-width: 767px) {
     /* line 44, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_common.scss */
     .single_padding_top {
-        padding-top: 100px !important;
+        padding-top: 150px !important;
     }
 }
 
 /* line 64, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_common.scss */
 .padding_top {
-    padding-top: 140px;
+    padding-top: 20px;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1200px) {
     /* line 64, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_common.scss */
     .padding_top {
-        padding-top: 100px;
+        padding-top: 20px;
     }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
     /* line 64, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_common.scss */
     .padding_top {
-        padding-top: 70px;
+        padding-top: 15px;
     }
 }
 
 @media (max-width: 576px) {
     /* line 64, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_common.scss */
     .padding_top {
-        padding-top: 70px;
+        padding-top: 15px;
     }
 }
 
 @media only screen and (min-width: 576px) and (max-width: 767px) {
     /* line 64, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_common.scss */
     .padding_top {
-        padding-top: 70px;
+        padding-top: 15px;
     }
 }
 
@@ -7613,27 +7613,27 @@ h6 {
 /**********************footer part css*******************/
 /* line 2, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_footer.scss */
 .footer_part {
-    padding: 130px 0px 25px;
+    padding: 30px 0px 25px;
 }
 
 @media (max-width: 576px) {
     /* line 2, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_footer.scss */
     .footer_part {
-        padding: 70px 0px 25px;
+        padding: 20px 0px 25px;
     }
 }
 
 @media only screen and (min-width: 576px) and (max-width: 767px) {
     /* line 2, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_footer.scss */
     .footer_part {
-        padding: 70px 0px 25px;
+        padding: 20px 0px 25px;
     }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
     /* line 2, ../../01 cl html template/03_jun 2019/188_Aranoz shop_html/sass/_footer.scss */
     .footer_part {
-        padding: 70px 0px 25px;
+        padding: 20px 0px 25px;
     }
 }
 
@@ -7891,6 +7891,27 @@ h6 {
     .footer_part .justify-content-around {
         justify-content: flex-start !important;
     }
+}
+
+.badge {
+    padding-left: 9px;
+    padding-right: 9px;
+    -webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+    border-radius: 9px;
+}
+
+.label-warning[href],
+.badge-warning[href] {
+    background-color: #c67605;
+}
+#lblCartCount {
+    font-size: 12px;
+    background: #ff0000;
+    color: #fff;
+    padding: 0 5px;
+    vertical-align: top;
+    margin-left: -10px;
 }
 
 /*# sourceMappingURL=style.css.map */

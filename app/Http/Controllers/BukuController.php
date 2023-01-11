@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Buku as Buku;
+use App\Models\Gudang;
 use Intervention\Image\ImageManagerStatic as Image;
 class BukuController extends Controller
 {
@@ -14,10 +15,10 @@ class BukuController extends Controller
             'kategori' => 'required',
             'visibilitas' => 'required',
             'hargasebelum' => 'required',
-            'hargasetelah' => 'required',
             'sku' => 'required',
             'berat' => 'required',
             'jumlahbarang' => 'required',
+            'gudang' => 'required',
             'gambar' => 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048',
         ]);
         $visibilitas = $request->visibilitas=="publish"? true:false;
@@ -38,29 +39,34 @@ class BukuController extends Controller
             'kategori' => $request->kategori,
             'status' => $visibilitas,
             'harga' => $request->hargasebelum,
-            'hargasetelahdiskon' => $request->hargasetelah,
+            'harga_diskon' => $request->hargasetelah,
             'sku' => $request->sku,
             'berat' => $request->berat,
             'jumlah_stok' => $request->jumlahbarang,
             'gambar' => $gambar,
-            'id_gudang'=>1,
+            'id_gudang'=>$request->gudang,
         ]);
 
-        if($buku){
-            //redirect dengan pesan sukses
-            return redirect()->route('daftar-produk')->with(['success' => 'Buku berhasil ditambahkan!']);
-        }else{
-            //redirect dengan pesan error
-            return redirect()->route('tambah-produk')->with(['error' => 'Buku Gagal Disimpan!']);
-        }
+        return redirect()->route('daftar-produk')->with(['success' => 'Buku berhasil ditambahkan!']);
+
     }
 
     public function daftar_produk(){
         return view('admin/daftar_produk', ['products' => Buku::getListProduk()]);
     }
+    public function pencarian(Request $request){
+        if($request->cari){
+            $buku = Buku::getPencarian($request->cari);
+            return view('cari',['buku' => $buku, 'katakunci'=>$request->cari]);
+        }else{
+            $buku = Buku::getKategori($request->kategori);
+            return view('cari',['buku' => $buku, 'kategori'=>$request->kategori]);
+        }
+    }
     public function create()
     {
-        return view('admin.tambah_produk');
+        $daftargudang=Gudang::getDaftarGudang();
+        return view('admin.tambah_produk',['daftargudang'=> $daftargudang]);
     }
   
     public function show(buku $buku)
@@ -70,7 +76,8 @@ class BukuController extends Controller
   
     public function edit(buku $buku)
     {
-        return view('admin.edit_produk',compact('buku'));
+        $daftargudang=Gudang::getDaftarGudang();
+        return view('admin.edit_produk',['buku'=>$buku,'daftargudang'=> $daftargudang]);
     }
 
     public function update(Request $request, buku $buku)
@@ -81,10 +88,10 @@ class BukuController extends Controller
             'kategori' => 'required',
             'visibilitas' => 'required',
             'hargasebelum' => 'required',
-            'hargasetelah' => 'required',
             'sku' => 'required',
             'berat' => 'required',
             'jumlahbarang' => 'required',
+            'gudang' => 'required',
             'gambar' => 'image|mimes:jpg,jpeg,png,svg,gif|max:2048',
         ]);
         $visibilitas = $request->visibilitas=="publish"? true:false;
@@ -111,7 +118,7 @@ class BukuController extends Controller
                 'berat' => $request->berat,
                 'jumlah_stok' => $request->jumlahbarang,
                 'gambar' => $gambar,
-                'id_gudang'=>1,
+                'id_gudang'=>$request->gudang,
             ]);
         }else{
             $buku->update([
@@ -124,12 +131,12 @@ class BukuController extends Controller
                 'sku' => $request->sku,
                 'berat' => $request->berat,
                 'jumlah_stok' => $request->jumlahbarang,
-                'id_gudang'=>1,
+                'id_gudang'=>$request->gudang,
             ]);
         }
 
         return redirect()->route('daftar-produk')
-                        ->with('success','buku updated successfully');
+                        ->with('success','Data buku berhasi diubah');
     }
 
     public function destroy(buku $buku)
@@ -138,6 +145,6 @@ class BukuController extends Controller
         $buku->delete();
        
         return redirect()->route('daftar-produk')
-                        ->with('success','buku deleted successfully');
+                        ->with('success','Buku berhasil dihapus');
     }
 }

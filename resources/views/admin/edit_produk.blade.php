@@ -59,8 +59,12 @@
                                 <div class="col-sm-10">
                                     <select value="{{ $buku->kategori }}" name="kategori" id="kategori"
                                         class="form-control kategori">
-                                        <option value="nanas">naas</option>
-                                        <option value="aple">apel</option>
+                                        <option value="Pendidikan">Pendidikan</option>
+                                        <option value="Sastra">Sastra</option>
+                                        <option value="Sains">Sains</option>
+                                        <option value="Agama">Agama</option>
+                                        <option value="Blibiogarfi">Blibiografi</option>
+                                        <option value="Umum">Umum</option>
                                     </select>
                                 </div>
                             </div>
@@ -138,7 +142,7 @@
                                     <div class="input-group input-group-merge">
                                         <input value="{{ $buku->berat }}" type="number" class="form-control"
                                             name="berat" />
-                                        <span class="input-group-text">kg</span>
+                                        <span class="input-group-text">gram</span>
                                     </div>
                                 </div>
                             </div>
@@ -147,6 +151,17 @@
                                 <div class="col-sm-10">
                                     <input value="{{ $buku->jumlah_stok }}" type="number" class="form-control"
                                         name="jumlahbarang" />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label">Asal Gudang</label>
+                                <div class="col-sm-10">
+                                    <select value="{{ old('gudang') }}" name="gudang" id="gudang" class="form-control">
+                                        @foreach ($daftargudang as $gudang)
+                                        <option value="{{$gudang->id}}" {{$gudang->id==$buku->id_gudang ?
+                                            "selected":""}}>{{$gudang->nama_gudang}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>

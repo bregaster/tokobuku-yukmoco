@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->boolean('status');
             $table->integer('harga');
+            $table->integer('harga_diskon');
             $table->integer('jumlah_stok');
             $table->string('gambar');
             $table->unsignedBigInteger('id_gudang');

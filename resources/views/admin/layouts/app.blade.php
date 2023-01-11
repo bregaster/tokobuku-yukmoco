@@ -8,7 +8,7 @@
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-  <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+  <title>Dashboard</title>
 
   <meta name="description" content="" />
 
@@ -48,10 +48,9 @@
   <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
       <!-- Menu -->
-
       <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
         <div class="app-brand demo">
-          <a href="index" class="app-brand-link">
+          <a href="/dashboard" class="app-brand-link">
             <span class="app-brand-logo demo">
               <svg version="1.1" width="425.6377" height="425.6376" id="svg8" viewBox="0 0 425.6377 425.6376"
                 sodipodi:docname="32933968b609d363201168971e7a3cf5.cdr"
@@ -83,7 +82,7 @@
         <ul class="menu-inner py-1">
           <!-- Dashboard -->
           <li class="menu-item active">
-            <a href="index.html" class="menu-link">
+            <a href="/dashboard" class="menu-link">
               <i class="menu-icon tf-icons bx bxs-home-circle"></i>
               <div data-i18n="Analytics">Dashboard</div>
             </a>
@@ -198,20 +197,8 @@
           </div>
 
           <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-            <!-- Search -->
-            <div class="navbar-nav align-items-center">
-              <div class="nav-item d-flex align-items-center">
-                <i class="bx bx-search fs-4 lh-0"></i>
-                <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
-                  aria-label="Search..." />
-              </div>
-            </div>
-            <!-- /Search -->
-
             <ul class="navbar-nav flex-row align-items-center ms-auto">
               <!-- Place this tag where you want the button to render. -->
-
-
               <!-- User -->
               <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -229,41 +216,14 @@
                           </div>
                         </div>
                         <div class="flex-grow-1">
-                          <span class="fw-semibold d-block">John Doe</span>
+                          <span class="fw-semibold d-block">{{auth()->user()->name}}</span>
                           <small class="text-muted">Admin</small>
                         </div>
                       </div>
                     </a>
                   </li>
                   <li>
-                    <div class="dropdown-divider"></div>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      <i class="bx bx-user me-2"></i>
-                      <span class="align-middle">My Profile</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      <i class="bx bx-cog me-2"></i>
-                      <span class="align-middle">Settings</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
-                      <span class="d-flex align-items-center align-middle">
-                        <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                        <span class="flex-grow-1 align-middle">Billing</span>
-                        <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                      </span>
-                    </a>
-                  </li>
-                  <li>
-                    <div class="dropdown-divider"></div>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="auth-login-basic.html">
+                    <a class="dropdown-item" href="{{route('logout')}}">
                       <i class="bx bx-power-off me-2"></i>
                       <span class="align-middle">Log Out</span>
                     </a>
@@ -335,6 +295,27 @@
     $(document).ready(function () {
           $('#example').DataTable();
       });
+  </script>
+  <script>
+    $(document).ready(function() {
+      $('select[name="provinsi"]').on('change', function(){
+        console.log('asd');
+        let provinceId = $(this).val();
+        if(provinceId){
+          $.get("/province/"+provinceId, function(data, status){
+            console.log(data);
+            $('select[name="kota"]').empty();
+              $('select[name="kota"]').append('<option >Pilih Kota</option>')
+            $.each(data, function(key, value){
+              console.log(key, value);
+              $('select[name="kota"]').append('<option value="'+ value.city_id +'">'+value.city_name+'</option>')
+            })
+            });
+        }else{
+          $('select[name="kota"]').empty();
+        }
+      })
+    });
   </script>
 </body>
 

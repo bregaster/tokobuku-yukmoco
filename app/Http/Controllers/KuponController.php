@@ -18,7 +18,13 @@ class KuponController extends Controller
             'tglselesai' => 'required'
         ],
         [
-            'nama.required'=>'Ini messagenya'
+            'nama.required'=>'nama kupon harus diisi',
+            'kodekupon.required'=>'kode kupon harus diisi',
+            'jumlahdiskon.required'=>'jumlah diskon kupon harus diisi',
+            'jumlahkupon.required'=>'jumlah kupon harus diisi',
+            'status.required'=>'status kupon harus diisi',
+            'tglmulai.required'=>'tanggal mulai kupon harus diisi',
+            'tglselesai.required'=>'tanggal akhir harus diisi'
         ]);
         $status = false;
         if($request->status == "aktif"){
@@ -33,7 +39,6 @@ class KuponController extends Controller
             'status' => $status,
             'tanggal_mulai' => $request->tglmulai,
             'tanggal_selesai' => $request->tglselesai,
-            'id_buku'=>1,
         ]);
 
 
@@ -45,6 +50,16 @@ class KuponController extends Controller
             //redirect dengan pesan error
             return redirect()->route('tambah-kupon')->with(['error' => 'Kupon Gagal Disimpan!']);
         }
+    }
+    public function aktifkanKupon(Request $request){
+            $this->validate($request, [
+            'kodekupon'     => 'required',
+        ],
+        [
+            'kodekupon.required'=>'kode kupon belum diisi',
+        ]);
+        $kupon=Kupon::cariKupon($request->kodekupon);
+        return redirect()->route('keranjang',['kupon'=>$kupon]);
     }
     public function daftar_kupon(){
         return view('admin/daftar_kupon', ['kupons' => Kupon::getKuponData()]);
@@ -66,7 +81,7 @@ class KuponController extends Controller
         return view('admin.edit_kupon',compact('kupon'));
     }
 
-    public function update(Request $request, kupon $kupon)
+    public function editKupon(Request $request, kupon $kupon)
     {
         $this->validate($request, [
             'nama'     => 'required',
@@ -78,12 +93,19 @@ class KuponController extends Controller
             'tglselesai' => 'required'
         ],
         [
-            'nama.required'=>'Ini messagenya'
+            'nama.required'=>'nama kupon harus diisi',
+            'kodekupon.required'=>'kode kupon harus diisi',
+            'jumlahdiskon.required'=>'jumlah diskon kupon harus diisi',
+            'jumlahkupon.required'=>'jumlah kupon harus diisi',
+            'status.required'=>'status kupon harus diisi',
+            'tglmulai.required'=>'tanggal mulai kupon harus diisi',
+            'tglselesai.required'=>'tanggal akhir harus diisi'
         ]);
         $status = false;
         if($request->status == "aktif"){
             $status = true; 
         };
+        //dd($request->kodekupon);
         $kupon->update([
             'nama_kupon' => $request->nama,
             'kode_kupon' => $request->kodekupon,
@@ -92,11 +114,10 @@ class KuponController extends Controller
             'status' => $status,
             'tanggal_mulai' => $request->tglmulai,
             'tanggal_selesai' => $request->tglselesai,
-            'id_buku'=>1,
         ]);
       
         return redirect()->route('daftar-kupon')
-                        ->with('success','kupon updated successfully');
+                        ->with('success','Data kupon berhasil diubah');
     }
 
     public function destroy(kupon $kupon)
@@ -105,6 +126,6 @@ class KuponController extends Controller
         $kupon->delete();
        
         return redirect()->route('daftar-kupon')
-                        ->with('success','kupon deleted successfully');
+                        ->with('success','Kupon berhasil dihapus');
     }
 }

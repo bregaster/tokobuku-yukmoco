@@ -23,7 +23,7 @@
 @endsection
 @section('content')
 <!--================Cart Area =================-->
-<section class="cart_area padding_top">
+<section class="cart_area section_padding">
   <div class="container">
     @if ($message = Session::get('success'))
     <div class="alert alert-success">
@@ -34,6 +34,16 @@
       <strong>{{ $message }}</strong>
     </div>
     @endif
+    {{-- menampilkan error validasi --}}
+    @if (count($errors) > 0)
+    <div class="alert alert-danger">
+      <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+    @endif
     <div class="cart_inner">
       <div class="table-responsive">
         <table class="table">
@@ -42,7 +52,7 @@
               <th scope="col">Product</th>
               <th scope="col">Price</th>
               <th scope="col">Quantity</th>
-              <th scope="col">Total</th>
+              <th style="width:20%" scope="col">Total</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
@@ -61,7 +71,7 @@
                 </div>
               </td>
               <td>
-                <h5>Rp. {{$details['harga']}}</h5>
+                <h5>Rp. {{number_format($details['harga'], 2, ',', '.')}}</h5>
               </td>
               <td>
                 <div class="product_count">
@@ -70,7 +80,7 @@
                 </div>
               </td>
               <td>
-                <h5>Rp. {{$details['harga'] * $details['jumlah']}}</h5>
+                <h5>Rp. {{number_format($total[]=$details['harga'] * $details['jumlah'], 2, ',', '.')}}</h5>
               </td>
               <td>
                 <ul class="list">
@@ -86,16 +96,45 @@
             @endforeach
             @endif
             <tr class="bottom_button">
+
+              @if(isset($kupon))
               <td>
-                <a class="btn_1" href="#">Update Cart</a>
-              </td>
-              <td></td>
-              <td></td>
-              <td>
-                <div class="cupon_text float-right">
-                  <a class="btn_1" href="#">Close Coupon</a>
+                <div class="cupon_area">
+                  <h2>
+                    <p>Kupon berhasil diaktifkan</p>
+                    <p>{{$kupon}}</p>
+
+                  </h2>
                 </div>
               </td>
+              <td>
+              </td>
+
+              @else
+              <td>
+                <div class="cupon_area">
+                  <h2>
+                    <p>Punya Kupon? Masukkan disini</p>
+                  </h2>
+                </div>
+              </td>
+              <td>
+              </td>
+              <form method="POST" action="{{route('aktifkan-kupon')}}">
+                @csrf
+                <td>
+                  <div class="cupon_area" style="margin:1px">
+                    <input name="kodekupon" type="text" placeholder="Masukkan kode kupon" />
+                  </div>
+                </td>
+                <td>
+                  <div class="cupon_area" style="margin:1px">
+                    <button type="submit" class="tp_btn">Aktifkan</button>
+                  </div>
+                </td>
+              </form>
+              @endif
+
             </tr>
             <tr>
               <td></td>
@@ -104,56 +143,64 @@
                 <h5>Subtotal</h5>
               </td>
               <td>
-                <h5></h5>
+                <h5>Rp. @if(isset($total))
+                  {{number_format(array_sum($total), 2, ',', '.')}}
+                  @else
+                  0
+                  @endif</h5>
               </td>
             </tr>
             <tr class="shipping_area">
               <td></td>
               <td></td>
+              @if(auth()->user())
               <td>
-                <h5>Shipping</h5>
               </td>
               <td>
                 <div class="shipping_box">
-                  <ul class="list">
-                    <li>
-                      <a href="#">Flat Rate: $5.00</a>
-                    </li>
-                    <li>
-                      <a href="#">Free Shipping</a>
-                    </li>
-                    <li>
-                      <a href="#">Flat Rate: $10.00</a>
-                    </li>
-                    <li class="active">
-                      <a href="#">Local Delivery: $2.00</a>
-                    </li>
-                  </ul>
-                  <h6>
-                    Calculate Shipping
-                    <i class="fa fa-caret-down" aria-hidden="true"></i>
-                  </h6>
-                  <select class="shipping_select">
-                    <option value="1">Bangladesh</option>
-                    <option value="2">India</option>
-                    <option value="4">Pakistan</option>
-                  </select>
-                  <select class="shipping_select section_bg">
-                    <option value="1">Select a State</option>
-                    <option value="2">Select a State</option>
-                    <option value="4">Select a State</option>
-                  </select>
-                  <input type="text" placeholder="Postcode/Zipcode" />
-                  <a class="btn_1" href="#">Update Details</a>
+                  <form action="{{ route('process-checkout')}}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input name="totalharga" hidden type="number" value="{{ isset($total) ? array_sum($total) : 0 }}" />
+                    <input name="idkupon" hidden type="number" value="{{ isset($kupon) ? $kupon : '' }}" />
+                    <input name="alamat" type="text" placeholder="Alamat" value="{{auth()->user()->alamat}}" />
+                    <select name="provinsi" class="form-control shipping_select">
+                      @if ($provinsi !== null)
+                      <option>Pilih Provinsi</option>
+                      @foreach ($provinsi as $row)
+                      <option value="{{$row['province_id']}}" {{auth()->user()->kode_provinsi==$row['province_id'] ?
+                        "selected" :"" }}
+                        >{{$row['province']}}</option>
+                      @endforeach
+                      @endif
+                    </select>
+                    <select name="kota" class="form-control shipping_select section_bg">
+                      @foreach ($kota as $row)
+                      <option value="{{$row['city_id']}}" {{auth()->user()->kode_kota==$row['city_id'] ?
+                        "selected" :"" }}
+                        >{{$row['city_name']}}</option>
+                      @endforeach
+                    </select>
+                    <input name="kodepos" type="text" placeholder="Kode Pos" />
+                    <div class="checkout_btn_inner float-right">
+                      <button type="submit" class="btn_3">Process Checkout</button>
+                    </div>
+                  </form>
                 </div>
               </td>
+              @else
+              <td></td>
+              <td>
+                <div class="col-md-12 form-group">
+                  <p>Silakan login atau register untuk melakukan pemesanan</p>
+                  <a class="btn_3" href="{{route('login')}}">Login</a>
+                  <br>
+                  <a class="btn_3" href="{{route('register')}}">Register</a>
+                </div>
+              </td>
+              @endif
             </tr>
           </tbody>
         </table>
-        <div class="checkout_btn_inner float-right">
-          <a class="btn_1" href="#">Continue Shopping</a>
-          <a class="btn_1 checkout_btn_1" href="{{route('proces-checkout')}}">Proceed to checkout</a>
-        </div>
       </div>
     </div>
 </section>
@@ -214,6 +261,27 @@
               }
           });
       }
+  });
+</script>
+<script>
+  $(document).ready(function() {
+    $('select[name="provinsi"]').on('change', function(){
+      console.log('asd');
+      let provinceId = $(this).val();
+      if(provinceId){
+        $.get("/province/"+provinceId, function(data, status){
+          console.log(data);
+          $('select[name="kota"]').empty();
+            $('select[name="kota"]').append('<option >Pilih Kota</option>')
+          $.each(data, function(key, value){
+            console.log(key, value);
+            $('select[name="kota"]').append('<option value="'+ value.city_id +'">'+value.city_name+'</option>')
+          })
+          });
+      }else{
+        $('select[name="kota"]').empty();
+      }
+    })
   });
 </script>
 @endsection

@@ -5,7 +5,7 @@
     <!-- Content -->
 
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Admin/</span> Tambah Gudang</h4>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Admin/</span> Edit Gudang</h4>
 
         <!-- Basic Layout & Basic with Icons -->
         <div class="row">
@@ -51,20 +51,40 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-default-company">provinsi</label>
+                                <div class="col-sm-10">
+                                    <select name="provinsi" class="form-control">
+                                        @if ($provinsi !== null)
+                                        <option>Pilih Provinsi</option>
+                                        @foreach ($provinsi as $row)
+                                        <option value="{{$row['province_id']}}" {{ $gudang->
+                                            kode_provinsi==$row['province_id']?"selected" :"" }}
+                                            >{{$row['province']}}</option>
+                                        @endforeach
+                                        @endif
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-default-company">kota</label>
+                                <div class="col-sm-10 ">
+                                    <select name="kota" class="form-control">
+                                        @foreach ($kota as $row)
+                                        <option value="{{$row['city_id']}}" {{$gudang->kode_kota==$row['city_id']
+                                            ?
+                                            "selected" :"" }}
+                                            >{{$row['city_name']}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="basic-default-company">kodepos</label>
                                 <div class="col-sm-10">
                                     <input type="number" class="form-control" id="basic-default-company" name="kodepos"
                                         value="{{ $gudang->kode_pos }}" />
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-company">Jumlah Kupon</label>
-                                <div class="col-sm-10">
-                                    <input type="number" class="form-control" id="basic-default-company"
-                                        placeholder="100 " name="jumlahkupon" value="{{ old('jumlahkupon') }}" />
-                                </div>
-                            </div>
-
                             <div class="row justify-content-end">
                                 <div class="col-sm-10">
                                     <button type="submit" class="btn btn-primary">Submit</button>

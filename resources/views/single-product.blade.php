@@ -56,7 +56,7 @@
               <input class="input-number" type="text" value="1" min="0" max="10">
               <span class="number-increment"> <i class="ti-plus"></i></span>
             </div>
-            <a href="{{ url('add-to-cart/'.$buku->id) }}" class="btn_3">add to cart</a>
+            <a href="{{ url('add-to-keranjang/'.$buku->id) }}" class="btn_3">add to cart</a>
           </div>
         </div>
       </div>

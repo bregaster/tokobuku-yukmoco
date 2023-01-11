@@ -10,15 +10,14 @@ class Kupon extends Model
 {
     use HasFactory;
     protected $table = 'kupon';
-    protected $fillable = ['nama_kupon', 'kode_kupon','jumlah_kupon', 'diskon_fix', 'status', 'tanggal_mulai','tanggal_selesai','id_buku'];
-    public function tambah_kupon(Request $request){
-            $blog = $this->create([
-            'title'     => $request->title,
-            'content'   => $request->content
-        ]);
-    }
+    protected $fillable = ['nama_kupon', 'kode_kupon','jumlah_kupon', 'diskon_fix', 'status', 'tanggal_mulai','tanggal_selesai'];
+
     protected function getKuponData(){
         $data= $this->all();
+        return $data;
+    }
+    protected function cariKupon($kodekupon){
+        $data= $this->where('kode_kupon',$kodekupon)->first();
         return $data;
     }
 

@@ -24,7 +24,8 @@ class UserSeeder extends Seeder
                 'email_verified_at'=>$faker->dateTimeBetween('-10 day' ),
                 'password'=>$faker->password(),
                 'alamat'=>$faker->address(),
-                'kode_pos' => $faker->numberBetween(43100,49000),
+                'kode_pos' => $faker->numberBetween(1,34),
+                'kode_pos' => $faker->numberBetween(1,500),
                 'no_telepon' => $faker->phoneNumber(),
                 'created_at' => $faker->dateTimeBetween('-10 day' ),
                 'updated_at' => $faker->dateTimeBetween('-5 day' )

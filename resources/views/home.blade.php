@@ -25,6 +25,15 @@
 <!-- product_list start-->
 <section class="product_list section_padding">
     <div class="container">
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <strong>{{ $message }}</strong>
+        </div>
+        @elseif($message = Session::get('error'))
+        <div class="alert alert-danger">
+            <strong>{{ $message }}</strong>
+        </div>
+        @endif
         <div class="row">
             <div class="col-lg-12">
                 <div class="product_list_slider owl-carousel">
@@ -38,9 +47,9 @@
                                     </a>
                                     <div class="single_product_text">
                                         <h4>{{$buku1->judul_buku}}</h4>
-                                        <h3>Rp. {{$buku1->harga}}</h3>
-                                        <a href="{{ url('add-to-cart/'.$buku1->id) }}" class="add_cart">+ add to
-                                            cart<i class="ti-heart"></i></a>
+                                        <h3>Rp. {{number_format($buku1->harga, 2, ',', '.')}}</h3>
+                                        <a href="{{ url('add-to-keranjang/'.$buku1->id) }}" class="add_cart">+ add to
+                                            cart</a>
                                     </div>
                                 </div>
                             </div>

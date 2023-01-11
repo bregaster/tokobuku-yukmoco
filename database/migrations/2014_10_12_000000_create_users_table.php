@@ -20,7 +20,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('alamat');
-            $table->string('kode_pos');
+            $table->string('kode_provinsi');
+            $table->string('kode_kota');
             $table->string('no_telepon');
             $table->rememberToken();
             $table->timestamps();

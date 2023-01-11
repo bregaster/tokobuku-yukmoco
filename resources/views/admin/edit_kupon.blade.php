@@ -32,10 +32,8 @@
                 @endif
                 <div class="card mb-4">
                     <div class="card-body">
-                        <form action="{{ route('kupons.update',$kupon->id)}}" method="POST"
-                            enctype="multipart/form-data">
+                        <form action="{{ route('edit-kupon',$kupon->id)}}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            @method('PUT')
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="basic-default-name">Nama Kupon</label>
                                 <div class="col-sm-10">

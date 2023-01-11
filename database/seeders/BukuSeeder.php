@@ -24,10 +24,10 @@ class BukuSeeder extends Seeder
                 'deskripsi'=>$faker->paragraph(),
                 'status'=>$faker->boolean(),
                 'harga'=>$faker->numberBetween(50000,300000),
+                'harga_diskon'=>$faker->numberBetween(50000,300000),
                 'jumlah_stok'=>$faker->numberBetween(20-50),
                 'gambar' => $faker->imageUrl(480, 640, 'book', true),
                 'id_gudang' => $faker->numberBetween(1,9)
-
             ]);
         }
     }
